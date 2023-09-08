@@ -13,6 +13,9 @@ justify-content: center;
 color: red; */
 width: 5%;
 }
+.abc{
+  display: flexbox;
+}
 .income1{
   display: flex;
   flex-direction: column;

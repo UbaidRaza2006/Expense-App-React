@@ -3,20 +3,25 @@ import { Button, Space, Table, Form, Input } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react';
 import './global.css'
+import FormItem from 'antd/es/form/FormItem';
 const { Column } = Table;
 
 export default function ExpenseTracker() {
     // naya
     const [form] = Form.useForm();
     // nayyaaa
+    // const [values,setformdata]=useState({
+    //     amount:'',
+    //     desc:'',
+    // })
     const [transactions, setTransactions] = useState([
         // naya 
-        {
-            created_at: new Date().toLocaleString(),
-            amount: 400,
-            type: 'income',
-            desc: "testing"
-        }
+        // {
+        //     created_at: new Date().toLocaleString(),
+        //     amount: 400,
+        //     type: 'income',
+        //     desc: "testing"
+        // }
         // nayaaa
 
     ])
@@ -49,35 +54,32 @@ export default function ExpenseTracker() {
 
 
     const onFinish = (values) => {
-        // console.log('dckjbcdsbc',values)
-        // console.log('dckjbcdsbcjghnthyt',type)
-
-        // naya
         if (isEdit !== null) {
-
-            transactions[isEdit] = {
-                ...values,
-                type,
-                created_at: new Date().toLocaleString()
-            }
-            setTransactions([...transactions])
-            setIsEdit(null)
+          transactions[isEdit] = {
+            ...values,
+            type,
+            created_at: new Date().toLocaleString()
+          };
+          setTransactions([...transactions]);
+          setIsEdit(null);
         } else {
-            // nayyaaaa
-            const obj = {
-                ...values,
-                type,
-                created_at: new Date().toLocaleString()
-            }
-            console.log(obj)
-            setTransactions([obj, ...transactions])
+          const obj = {
+            ...values,
+            type,
+            created_at: new Date().toLocaleString()
+          };
+          setTransactions([obj, ...transactions]);
         }
-        // naya
-        form.resetFields()
-        setType(undefined)
-        // nayaaa
-    };
-
+      
+        // Reset the form fields to empty values
+        form.resetFields(); // This will clear all form fields
+      
+        // Optionally, set specific fields to empty values if needed
+        form.setFieldsValue({
+          amount: '', // Empty 'amount'
+          desc: '',   // Empty 'desc'
+        });
+      };
     // naya
     const edit = (record, ind) => {
         setIsEdit(ind)
@@ -116,11 +118,17 @@ export default function ExpenseTracker() {
     //     },
     // ];
     return (
-        <div id='diviii' className="min-h-screen p-5 bg-white flex flex-col items-center">
-            <h2 className="font-700 text-[30px]">Expense Tracker</h2>
+        <div id='diviii' 
+        // className="min-h-screen p-5 bg-white flex flex-col items-center"
+        >
+            <h2 
+            // className="font-700 text-[30px]"
+            >Expense Tracker</h2>
             <div className='income1'>
 
-                <div id='income' className='flex'>
+                <div id='income' 
+                // className='flex'
+                >
                     <div
                         onClick={() => setType('income')}
                         style={{
@@ -128,7 +136,9 @@ export default function ExpenseTracker() {
                             cursor: 'pointer', borderWidth: 1,
                             backgroundColor: type === 'income' ? 'green' : 'white',
                             color: type === 'income' ? '#fff' : '#000'
-                        }} className={`px-4 py-2 m-2`}>
+                        }}
+                        //  className={`px-4 py-2 m-2`}
+                         >
                         Income
                     </div>
 
@@ -139,7 +149,8 @@ export default function ExpenseTracker() {
                         color: type === 'expense' ? '#fff' : '#000'
                     }}
                         onClick={() => setType('expense')}
-                        className={`px-4 py-2 m-2 `}>
+                        // className={`px-4 py-2 m-2 `}
+                        >
                         Expense
                     </div>
                 </div>
@@ -185,7 +196,7 @@ export default function ExpenseTracker() {
                             span: 16,
                         }}
                     >
-                        <Button htmlType="submit">
+                        <Button  htmlType="submit">
                        {/* naya */}
                         {isEdit !== null ? 'Edit' : 'Submit'}
                         {/* nayaaaa */}
@@ -194,19 +205,31 @@ export default function ExpenseTracker() {
                 </Form>
             </div>
 
-            <div className='w-[700px] border-black flex'>
+            <div 
+            // className='w-[700px] border-black flex abc'
+            >
 
-                <div className='p-3' style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center' }}>
+                <div 
+                // className='p-3' 
+                style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center' }}>
                     <h1 >Income</h1>
-                    <h1 className='font-bold text-[40px] text-green-400'>{totals.income}</h1>
+                    <h1 
+                    // className='font-bold text-[40px] text-green-400'
+                    >{totals.income}</h1>
                 </div>
-                <div className='p-3' style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center' }}>
+                <div
+                 className='p-3'
+                  style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center' }}>
                     <h1>Expense</h1>
-                    <h1 className='font-bold text-[40px] text-red-400'>{totals.expense}</h1>
+                    <h1
+                    //  className='font-bold text-[40px] text-red-400'
+                     >{totals.expense}</h1>
                 </div>
                 <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', }}>
                     <h1>Profit Loss</h1>
-                    <h1 className='font-bold text-[40px] text-red-400' style={{ color: totals.profitLoss >= 0 ? 'green' : 'red' }}>{totals.profitLoss}</h1>
+                    <h1 
+                    // className='font-bold text-[40px] text-red-400'
+                     style={{ color: totals.profitLoss >= 0 ? 'green' : 'red' }}>{totals.profitLoss}</h1>
                 </div>
 
             </div>
