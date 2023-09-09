@@ -2,11 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .diviii{
-border: 2px solid black;  
-margin: 0px auto;
-/* margin-left: 250px; */
+/* #diviii{
+/* font-size: 100%; */
+.expense{
+font-size: 50px;
+}
+#expensee{
+width: 250px;
+height: 70px;
+}
+
 #income{
+  width: 250px;
+  height: 70px;
 /* display: flex;
 flex-direction: column;
 justify-content: center;

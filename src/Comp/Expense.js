@@ -10,6 +10,7 @@ export default function ExpenseTracker() {
     // naya
     const [form] = Form.useForm();
     // nayyaaa
+    const [new1,setNew1]=useState('')
     // const [values,setformdata]=useState({
     //     amount:'',
     //     desc:'',
@@ -47,39 +48,45 @@ export default function ExpenseTracker() {
                 }
             })
 
-            setTotals({ income: income, expense: expense, profitLoss: income - expense })
+            setTotals({ income: income, expense: expense, profitLoss: income - expense})
+            if (totals.profitLoss<0){
+            // console.log(totals.profitLoss.toString().split("").shift());
+            setNew1(totals.profitLoss.toString().split("").slice(1,totals.profitLoss.length))
+            console.log(totals.profitLoss.toString().split("").slice(1,totals.profitLoss.length));
+            console.log('Saalam');
+            setTotals({ income: income, expense: expense, profitLoss: new1})
+            }
+            // setTotals({ income: income, expense: expense, profitLoss: new1})
 
         }
     }, [transactions])
 
 
     const onFinish = (values) => {
+        console.log(values);
         if (isEdit !== null) {
-          transactions[isEdit] = {
-            ...values,
-            type,
-            created_at: new Date().toLocaleString()
-          };
-          setTransactions([...transactions]);
-          setIsEdit(null);
+            transactions[isEdit] = {
+                ...values,
+                type,
+                created_at: new Date().toLocaleString()
+            };
+            setTransactions([...transactions]);
+            setIsEdit(null);
         } else {
-          const obj = {
-            ...values,
-            type,
-            created_at: new Date().toLocaleString()
-          };
-          setTransactions([obj, ...transactions]);
+            const obj = {
+                ...values,
+                type,
+                created_at: new Date().toLocaleString()
+            };
+            setTransactions([obj, ...transactions]);
+            
         }
-      
+        form.resetFields()
+    
         // Reset the form fields to empty values
-        form.resetFields(); // This will clear all form fields
-      
-        // Optionally, set specific fields to empty values if needed
-        form.setFieldsValue({
-          amount: '', // Empty 'amount'
-          desc: '',   // Empty 'desc'
-        });
-      };
+        form.resetFields(); // Use form.resetFields() without any arguments to reset all fields.
+    }
+    
     // naya
     const edit = (record, ind) => {
         setIsEdit(ind)
@@ -121,15 +128,15 @@ export default function ExpenseTracker() {
         <div id='diviii' 
         // className="min-h-screen p-5 bg-white flex flex-col items-center"
         >
-            <h2 
+            <h2 className='expense'
             // className="font-700 text-[30px]"
             >Expense Tracker</h2>
             <div className='income1'>
 
-                <div id='income' 
+                <div  
                 // className='flex'
                 >
-                    <div
+                    <div id='income'
                         onClick={() => setType('income')}
                         style={{
                             borderColor: '#ccc', borderRadius: 25,
@@ -142,7 +149,7 @@ export default function ExpenseTracker() {
                         Income
                     </div>
 
-                    <div style={{
+                    <div id='expensee' style={{
                         borderColor: '#ccc', borderRadius: 25,
                         cursor: 'pointer', borderWidth: 1,
                         backgroundColor: type === 'expense' ? 'red' : 'white',
@@ -156,10 +163,12 @@ export default function ExpenseTracker() {
                 </div>
 
                 <Form
-                    name="basic"
+                    name="control-hooks"
+                    form={form}
                     style={{
                         maxWidth: 600,
                     }}
+                    
                     onFinish={onFinish}
                 >
                     <Form.Item
@@ -229,7 +238,8 @@ export default function ExpenseTracker() {
                     <h1>Profit Loss</h1>
                     <h1 
                     // className='font-bold text-[40px] text-red-400'
-                     style={{ color: totals.profitLoss >= 0 ? 'green' : 'red' }}>{totals.profitLoss}</h1>
+                     style={{  color: totals.profitLoss >= 0 ? 'green' : 'red' }}
+                     >{totals.profitLoss}</h1>
                 </div>
 
             </div>
