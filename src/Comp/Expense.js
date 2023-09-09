@@ -134,7 +134,7 @@ export default function ExpenseTracker() {
             <div className='income1'>
 
                 <div  
-                // className='flex'
+                className='flex'
                 >
                     <div id='income'
                         onClick={() => setType('income')}
@@ -163,17 +163,21 @@ export default function ExpenseTracker() {
                 </div>
 
                 <Form
+                    className='formmm'
                     name="control-hooks"
                     form={form}
                     style={{
                         maxWidth: 600,
+                        fontSize: 500
                     }}
                     
                     onFinish={onFinish}
                 >
                     <Form.Item
                         label={'Amount'}
+                        // style={{fontSize:'50px'}}
                         name={'amount'}
+                        className='itemlabel'
                         rules={[
                             {
                                 required: true,
@@ -182,12 +186,14 @@ export default function ExpenseTracker() {
                         ]}
 
                     >
-                        <Input type='number' />
+                        <Input type='number' id='item1' className='item'/>
                     </Form.Item>
 
                     <Form.Item
                         label={'Description'}
                         name={'desc'}
+                        className='itemlabel'
+
                         rules={[
                             {
                                 required: true,
@@ -196,16 +202,17 @@ export default function ExpenseTracker() {
                         ]}
 
                     >
-                        <Input type='text' />
+                        <Input type='text' className='item'/>
                     </Form.Item>
 
                     <Form.Item
+                
                         wrapperCol={{
                             offset: 8,
                             span: 16,
                         }}
                     >
-                        <Button  htmlType="submit">
+                        <Button  htmlType="submit" className='submit'>
                        {/* naya */}
                         {isEdit !== null ? 'Edit' : 'Submit'}
                         {/* nayaaaa */}
@@ -214,12 +221,12 @@ export default function ExpenseTracker() {
                 </Form>
             </div>
 
-            <div 
+            <div className='profit'
             // className='w-[700px] border-black flex abc'
             >
 
                 <div 
-                // className='p-3' 
+                className='p-3' id='p-0'
                 style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center' }}>
                     <h1 >Income</h1>
                     <h1 
@@ -227,14 +234,15 @@ export default function ExpenseTracker() {
                     >{totals.income}</h1>
                 </div>
                 <div
-                 className='p-3'
+                 className='p-3' id='p-1'
                   style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center' }}>
                     <h1>Expense</h1>
                     <h1
                     //  className='font-bold text-[40px] text-red-400'
                      >{totals.expense}</h1>
                 </div>
-                <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', }}>
+                   
+                <div  id='p-2' className='p-3' style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', }}>
                     <h1>Profit Loss</h1>
                     <h1 
                     // className='font-bold text-[40px] text-red-400'
@@ -243,8 +251,8 @@ export default function ExpenseTracker() {
                 </div>
 
             </div>
-
-            <Table style={{ width: "700px" }} dataSource={transactions}
+< div className='tablediv'>
+            <Table className='tableee' style={{ width: "700px" }} dataSource={transactions}
             // columns={columns}/
             >
                 <Column dataIndex={'created_at'} key={'created_at'} title='Date' />
@@ -263,7 +271,7 @@ export default function ExpenseTracker() {
                         )
                     }} />
             </Table>
-
+            </div>
 
         </div>
     )
